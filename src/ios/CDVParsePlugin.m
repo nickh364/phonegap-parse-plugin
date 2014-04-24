@@ -6,6 +6,8 @@
 
 @implementation CDVParsePlugin
 
+NSString *storyURL;
+
 - (void)initialize: (CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
@@ -71,6 +73,20 @@
     [currentInstallation saveInBackground];
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+- (void)getNotification: (CDVInvokedUrlCommand *)command
+{
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:storyURL];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)handleBackgroundNotification:(NSDictionary *)notification
+{
+    if ([notification objectForKey:@"url"])
+    {
+        // do something with job id
+        storyURL = [notification objectForKey:@"url"];
+    }
 }
 
 @end

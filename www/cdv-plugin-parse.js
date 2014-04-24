@@ -1,4 +1,4 @@
-var parsePlugin = {
+cordova.define("org.apache.cordova.core.parseplugin.ParsePlugin", function(require, exports, module) { var parsePlugin = {
     initialize: function(appId, clientKey, successCallback, errorCallback) {
         cordova.exec(
             successCallback,
@@ -57,6 +57,18 @@ var parsePlugin = {
             'unsubscribe',
             [ channel ]
         );
+    },
+	getNotification: function(successCallback, errorCallback) {
+        cordova.exec(
+            successCallback,
+            errorCallback,
+            'ParsePlugin',
+            'getNotification',
+            []
+        );
     }
+
 };
 module.exports = parsePlugin;
+
+});
