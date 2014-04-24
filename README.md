@@ -1,3 +1,6 @@
+Working On Updating the readme
+------------
+
 Phonegap Parse.com Plugin
 =========================
 
@@ -13,13 +16,54 @@ This plugin exposes the four native Android API push services to JS:
 
 Installation Cordova
 ------------
-cordova plugin add https://github.com/benjie/phonegap-parse-plugin
+cordova plugin add https://github.com/nickh364/phonegap-parse-plugin.git
 
 Installation Phonegap
 ------------
-phonegap local plugin add https://github.com/benjie/phonegap-parse-plugin
+phonegap local plugin add https://github.com/nickh364/phonegap-parse-plugin.git
 
-Usage
+Usage Android
+-----
+```
+<script type="text/javascript>
+	parsePlugin.initialize(appId, clientKey, function() {
+		alert('success');
+	}, function(e) {
+		alert('error');
+	});
+  
+	parsePlugin.getInstallationId(function(id) {
+		alert(id);
+	}, function(e) {
+		alert('error');
+	});
+	
+	parsePlugin.getSubscriptions(function(subscriptions) {
+		alert(subscriptions);
+	}, function(e) {
+		alert('error');
+	});
+	
+	parsePlugin.subscribe('SampleChannel', function() {
+		alert('OK');
+	}, function(e) {
+		alert('error');
+	});
+	
+	parsePlugin.unsubscribe('SampleChannel', function(msg) {
+		alert('OK');
+	}, function(e) {
+		alert('error');
+	});
+	parsePlugin.getNotification(function(url) {
+		alert(url);
+	}, function(e) {
+		alert('error');
+	});
+</script>
+```
+
+Usage iOS
 -----
 ```
 <script type="text/javascript>
