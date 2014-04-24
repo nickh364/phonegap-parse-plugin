@@ -1,4 +1,4 @@
-cordova.define("org.apache.cordova.core.parseplugin.ParsePlugin", function(require, exports, module) { var parsePlugin = {
+var parsePlugin = {
     initialize: function(appId, clientKey, successCallback, errorCallback) {
         cordova.exec(
             successCallback,
@@ -70,5 +70,3 @@ cordova.define("org.apache.cordova.core.parseplugin.ParsePlugin", function(requi
 
 };
 module.exports = parsePlugin;
-
-});
