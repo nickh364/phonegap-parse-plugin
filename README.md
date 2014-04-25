@@ -59,7 +59,7 @@ Usage iOS
 
 ```
 
-##### You can change the key from url under CDVParsePlugin.m
+##### You can change the key from something other than url under CDVParsePlugin.m
 ```
 - (void)handleBackgroundNotification:(NSDictionary *)notification
 {
