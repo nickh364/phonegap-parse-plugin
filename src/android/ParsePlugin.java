@@ -12,7 +12,6 @@ import com.parse.ParseInstallation;
 import com.parse.PushService;
 
 public class ParsePlugin extends CordovaPlugin {
-    public static final String ACTION_INITIALIZE = "initialize";
     public static final String ACTION_GET_INSTALLATION_ID = "getInstallationId";
     public static final String ACTION_GET_INSTALLATION_OBJECT_ID = "getInstallationObjectId";
     public static final String ACTION_GET_SUBSCRIPTIONS = "getSubscriptions";
@@ -21,10 +20,6 @@ public class ParsePlugin extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals(ACTION_INITIALIZE)) {
-            this.initialize(callbackContext, args);
-            return true;
-        }
         if (action.equals(ACTION_GET_INSTALLATION_ID)) {
             this.getInstallationId(callbackContext);
             return true;
@@ -47,21 +42,6 @@ public class ParsePlugin extends CordovaPlugin {
             return true;
         }
         return false;
-    }
-
-    private void initialize(final CallbackContext callbackContext, final JSONArray args) {
-        cordova.getThreadPool().execute(new Runnable() {
-            public void run() {
-                try {
-                    String appId = args.getString(0);
-                    String clientKey = args.getString(1);
-                    Parse.initialize(cordova.getActivity(), appId, clientKey);
-                    callbackContext.success();
-                } catch (JSONException e) {
-                    callbackContext.error("JSONException");
-                }
-            }
-        });
     }
 
     private void getInstallationId(final CallbackContext callbackContext) {
