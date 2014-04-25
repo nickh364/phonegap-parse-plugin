@@ -19,7 +19,8 @@
         </config-file>
 
         <source-file src="src/android/parse/Parse-1.4.3.jar" target-dir="libs" framework="true" />
-        <source-file src="src/android/ParsePlugin.java" target-dir="src/org/apache/cordova/core" />      
+        <source-file src="src/android/ParsePlugin.java" target-dir="src/org/apache/cordova/core" /> 
+        <source-file src="src/android/PushReceiver.java" target-dir="src/org/apache/cordova/core" /> 
      </platform>
 
     <!-- ios -->
