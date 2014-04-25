@@ -7,7 +7,6 @@ import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import com.parse.Parse;
 import com.parse.ParseInstallation;
 import com.parse.PushService;
 
@@ -17,6 +16,8 @@ public class ParsePlugin extends CordovaPlugin {
     public static final String ACTION_GET_SUBSCRIPTIONS = "getSubscriptions";
     public static final String ACTION_SUBSCRIBE = "subscribe";
     public static final String ACTION_UNSUBSCRIBE = "unsubscribe";
+	public static final String ACTION_GET_Notification = "getNotification";
+	public static String url;
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -39,6 +40,10 @@ public class ParsePlugin extends CordovaPlugin {
         }
         if (action.equals(ACTION_UNSUBSCRIBE)) {
             this.unsubscribe(args.getString(0), callbackContext);
+            return true;
+        }
+		if (action.equals(ACTION_GET_Notification)) {
+            this.getNotification(callbackContext);
             return true;
         }
         return false;
@@ -88,6 +93,11 @@ public class ParsePlugin extends CordovaPlugin {
             }
         });
     }
-
+	private void getNotification(final CallbackContext callbackContext) {
+        cordova.getThreadPool().execute(new Runnable() {
+            public void run() {
+                callbackContext.success(url);
+            }
+        });
+    }
 }
-
