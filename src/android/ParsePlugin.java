@@ -97,6 +97,7 @@ public class ParsePlugin extends CordovaPlugin {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
                 callbackContext.success(key);
+                key = null;
             }
         });
     }
