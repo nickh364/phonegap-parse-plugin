@@ -59,6 +59,17 @@ Usage iOS
 
 ```
 
+##### You can change the key from url under CDVParsePlugin.m
+```
+- (void)handleBackgroundNotification:(NSDictionary *)notification
+{
+    if ([notification objectForKey:@"url"])
+    {
+        // do something with job id
+        storyURL = [notification objectForKey:@"url"];
+    }
+}
+```
 ##### Notification JSON with custom data
 ```
 {
