@@ -26,7 +26,7 @@ public class PushReceiver extends BroadcastReceiver {
 	        String key = (String) itr.next();
 	        if(key.equals("url")){
 	        	Log.d(TAG, "url");
-	        	ParsePlugin.url = json.getString(key);
+	        	ParsePlugin.key = json.getString(key);
 	        }
 	        Log.d(TAG, "..." + key + " => " + json.getString(key));
 	      }
