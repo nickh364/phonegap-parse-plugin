@@ -51,7 +51,7 @@ if(key.equals("url")){
 	ParsePlugin.key = json.getString(key);
 }
 ```
-
+<hr/>
 Usage iOS
 -----
 
