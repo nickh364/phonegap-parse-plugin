@@ -26,12 +26,6 @@ Usage Android
 -----
 ```
 <script type="text/javascript>
-	parsePlugin.initialize(appId, clientKey, function() {
-		alert('success');
-	}, function(e) {
-		alert('error');
-	});
-  
 	parsePlugin.getInstallationId(function(id) {
 		alert(id);
 	}, function(e) {
@@ -67,12 +61,6 @@ Usage iOS
 -----
 ```
 <script type="text/javascript>
-	parsePlugin.initialize(appId, clientKey, function() {
-		alert('success');
-	}, function(e) {
-		alert('error');
-	});
-  
 	parsePlugin.getInstallationId(function(id) {
 		alert(id);
 	}, function(e) {
@@ -106,4 +94,4 @@ Usage iOS
 
 Compatibility
 -------------
-Phonegap > 3.0.0
+Phonegap/cordova > 3.0.0
