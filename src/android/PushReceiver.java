@@ -1,4 +1,4 @@
-package com.onenewsnow.app;
+package org.apache.cordova.core;
 import org.apache.cordova.core.*;
 import java.util.Iterator;
 
