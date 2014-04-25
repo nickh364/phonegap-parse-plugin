@@ -81,6 +81,20 @@ Usage iOS
     "url": http://example.com
 }
 ```
+<hr />
+#### iOS Frameworks used 
+
+- AudioToolbox.framework
+- CFNetwork.framework
+- CoreGraphics.framework
+- CoreLocation.framework
+- libz.1.1.3.dylib
+- MobileCoreServices.framework
+- QuartzCore.framework
+- Security.framework
+- StoreKit.framework
+- SystemConfiguration.framework
+- src/ios/Frameworks/Parse.framework
 
 Javascript Functions
 -----
