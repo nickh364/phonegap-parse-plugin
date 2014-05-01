@@ -17,7 +17,6 @@ public class ParsePlugin extends CordovaPlugin {
 	public static final String ACTION_SUBSCRIBE = "subscribe";
     	public static final String ACTION_UNSUBSCRIBE = "unsubscribe";
 	public static final String ACTION_GET_Notification = "getNotification";
-	public static String title;
 	public static String key;
 
     @Override
@@ -97,9 +96,8 @@ public class ParsePlugin extends CordovaPlugin {
 	private void getNotification(final CallbackContext callbackContext) {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
-                callbackContext.success(title, key);
+                callbackContext.success(key);
                 key = null;
-                title = null;
             }
         });
     }
