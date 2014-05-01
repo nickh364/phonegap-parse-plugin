@@ -26,10 +26,6 @@ public class PushReceiver extends BroadcastReceiver {
             Iterator itr = json.keys();
             while (itr.hasNext()) {
                 String key = (String) itr.next();
-                if (key.equals("alert")) {
-                    Log.d(TAG, "alert");
-                    ParsePlugin.title = json.getString(key);
-                }
                 if (key.equals("url")) {
                     Log.d(TAG, "url");
                     ParsePlugin.key = json.getString(key);
