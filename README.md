@@ -32,6 +32,26 @@ import com.parse.Parse;
 Parse.initialize(this, "Your Application ID", "Your Client Key");
 ```
 
+#### Use this to get custom data like a story url from your notification
+<hr />
+
+##### Add this to your apps manifest and change com.example to your package name
+```
+<receiver android:name="com.example.PushReceiver" android:exported="false">
+  <intent-filter>
+    <action android:name="com.example.push" />
+  </intent-filter>
+</receiver>
+```
+##### Drag PushReceiver.java from org.apache.cordova.core to your package
+
+##### You can change the key from something other than url under PushReceiver.java
+```
+if(key.equals("url")){
+	ParsePlugin.key = json.getString(key);
+}
+```
+<hr/>
 Usage iOS
 -----
 
