@@ -18,7 +18,7 @@
             </feature>
         </config-file>
 
-        <source-file src="src/android/parse/Parse-1.4.3.jar" target-dir="libs" framework="true" />
+        <source-file src="src/android/parse/Parse-1.5.1.jar" target-dir="libs" framework="true" />
         <source-file src="src/android/ParsePlugin.java" target-dir="src/org/apache/cordova/core" />      
      </platform>
 
