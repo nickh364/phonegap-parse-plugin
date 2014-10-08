@@ -17,7 +17,7 @@
                 <param name="android-package" value="org.apache.cordova.core.ParsePlugin" />
             </feature>
         </config-file>
-        <source-file src="src/android/parse/Parse-1.5.1.jar" target-dir="libs" framework="true" />
+        <source-file src="src/android/parse/Parse-1.7.0.jar" target-dir="libs" framework="true" />
         <source-file src="src/android/ParsePlugin.java" target-dir="src/org/apache/cordova/core" />      
         <source-file src="src/android/PushReceiver.java" target-dir="src/org/apache/cordova/core" /> 
      </platform>
@@ -32,8 +32,6 @@
         <header-file src="src/ios/CDVParsePlugin.h" />
         <source-file src="src/ios/CDVParsePlugin.m" />
 
-        <!--<framework src="AssetsLibrary.framework" />-->
-        <!--<framework src="MobileCoreServices.framework" />-->
         <framework src="AudioToolbox.framework" />
         <framework src="CFNetwork.framework" />
         <framework src="CoreGraphics.framework" />
@@ -45,6 +43,7 @@
         <framework src="StoreKit.framework" />
         <framework src="SystemConfiguration.framework" />
         <framework src="src/ios/Frameworks/Parse.framework" custom="true" />
+        <framework src="src/ios/Frameworks/Bolts.framework" custom="true" />
     </platform>
           
 </plugin>
