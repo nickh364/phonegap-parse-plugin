@@ -67,6 +67,7 @@ NSString *storyURL;
 - (void)getNotification: (CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:storyURL];
+    storyURL = NULL;
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
