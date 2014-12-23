@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
-<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
-           id="org.apache.cordova.core.parseplugin"
-      version="1.0.2">
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" id="org.apache.cordova.core.parseplugin" version="1.0.3">
     <name>phonegap-parse-plugin</name>
     <description>phonegap parse plugin</description>
 
@@ -18,10 +16,10 @@
             </feature>
         </config-file>
         <source-file src="src/android/parse/Parse-1.8.0.jar" target-dir="libs" framework="true" />
-		<source-file src="src/android/parse/bolts-android-1.1.4.jar" target-dir="libs" framework="true" />
-        <source-file src="src/android/ParsePlugin.java" target-dir="src/org/apache/cordova/core" />      
-        <source-file src="src/android/PushReceiver.java" target-dir="src/org/apache/cordova/core" /> 
-     </platform>
+        <source-file src="src/android/parse/bolts-android-1.1.4.jar" target-dir="libs" framework="true" />
+        <source-file src="src/android/ParsePlugin.java" target-dir="src/org/apache/cordova/core" />
+        <source-file src="src/android/PushReceiver.java" target-dir="src/org/apache/cordova/core" />
+    </platform>
 
     <!-- ios -->
     <platform name="ios">
@@ -46,5 +44,5 @@
         <framework src="src/ios/Frameworks/Parse.framework" custom="true" />
         <framework src="src/ios/Frameworks/Bolts.framework" custom="true" />
     </platform>
-          
+
 </plugin>
