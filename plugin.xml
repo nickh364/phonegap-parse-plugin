@@ -2,7 +2,7 @@
 
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
            id="org.apache.cordova.core.parseplugin"
-      version="1.0.1">
+      version="1.0.2">
     <name>phonegap-parse-plugin</name>
     <description>phonegap parse plugin</description>
 

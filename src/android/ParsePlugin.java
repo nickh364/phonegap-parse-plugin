@@ -1,6 +1,6 @@
 package org.apache.cordova.core;
 
-import java.util.Set;
+import java.util.List;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -8,14 +8,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import com.parse.ParseInstallation;
-import com.parse.PushService;
+import com.parse.ParsePush;
 
 public class ParsePlugin extends CordovaPlugin {
 	public static final String ACTION_GET_INSTALLATION_ID = "getInstallationId";
 	public static final String ACTION_GET_INSTALLATION_OBJECT_ID = "getInstallationObjectId";
 	public static final String ACTION_GET_SUBSCRIPTIONS = "getSubscriptions";
 	public static final String ACTION_SUBSCRIBE = "subscribe";
-    	public static final String ACTION_UNSUBSCRIBE = "unsubscribe";
+    public static final String ACTION_UNSUBSCRIBE = "unsubscribe";
 	public static final String ACTION_GET_Notification = "getNotification";
 	public static String key;
 
@@ -70,7 +70,7 @@ public class ParsePlugin extends CordovaPlugin {
     private void getSubscriptions(final CallbackContext callbackContext) {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
-                 Set<String> subscriptions = PushService.getSubscriptions(cordova.getActivity());
+            	List<String> subscriptions = ParseInstallation.getCurrentInstallation().getList("channels");
                  callbackContext.success(subscriptions.toString());
             }
         });
@@ -79,7 +79,7 @@ public class ParsePlugin extends CordovaPlugin {
     private void subscribe(final String channel, final CallbackContext callbackContext) {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
-                PushService.subscribe(cordova.getActivity(), channel, cordova.getActivity().getClass());
+            	ParsePush.subscribeInBackground(channel);
                 callbackContext.success();
             }
         });
@@ -88,7 +88,7 @@ public class ParsePlugin extends CordovaPlugin {
     private void unsubscribe(final String channel, final CallbackContext callbackContext) {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
-                PushService.unsubscribe(cordova.getActivity(), channel);
+            	ParsePush.unsubscribeInBackground(channel);
                 callbackContext.success();
             }
         });

@@ -13,6 +13,8 @@ import android.util.Log;
 
 public class PushReceiver extends BroadcastReceiver {
     private static final String TAG = "PushReceiver";
+	private static final String key = "key";
+	
 
     @
     Override
@@ -26,8 +28,8 @@ public class PushReceiver extends BroadcastReceiver {
             Iterator itr = json.keys();
             while (itr.hasNext()) {
                 String key = (String) itr.next();
-                if (key.equals("url")) {
-                    Log.d(TAG, "url");
+                if (key.equals(key)) {
+                    Log.d(TAG, key);
                     ParsePlugin.key = json.getString(key);
                 }
                 Log.d(TAG, "..." + key + " => " + json.getString(key));
