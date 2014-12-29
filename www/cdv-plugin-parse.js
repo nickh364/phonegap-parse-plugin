@@ -66,6 +66,41 @@ var parsePlugin = {
             'getNotification',
             []
         );
+    },
+	getConfig: function(successCallback, errorCallback) {
+        cordova.exec(
+            successCallback,
+            errorCallback,
+            'ParsePlugin',
+            'getConfig',
+            []
+        );
+    },
+	getConfigItem: function(configItemName, defaultItem, callback) {
+        cordova.exec(
+            function(result) {
+            	callback(result);
+			},
+			function(error) {
+				callback(error);
+			},
+            'ParsePlugin',
+            'getConfigItem',
+            [configItemName, defaultItem]
+        );
+    },
+	getConfigPlatformItem: function(configItemName, defaultItem, callback) {
+        cordova.exec(
+            function(result) {
+            	callback(result);
+			},
+			function(error) {
+				callback(error);
+			},
+            'ParsePlugin',
+            'getConfigPlatformItem',
+            [configItemName, defaultItem]
+        );
     }
 
 };

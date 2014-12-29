@@ -9,6 +9,9 @@
 - (void)subscribe: (CDVInvokedUrlCommand *)command;
 - (void)unsubscribe: (CDVInvokedUrlCommand *)command;
 - (void)getNotification: (CDVInvokedUrlCommand *)command;
+- (void)getConfig: (CDVInvokedUrlCommand *)command;
+- (void)getConfigItem: (CDVInvokedUrlCommand *)command;
+- (void)getConfigPlatformItem: (CDVInvokedUrlCommand *)command;
 - (void)handleBackgroundNotification:(NSDictionary *)notification;
 
 @end

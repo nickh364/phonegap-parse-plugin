@@ -7,6 +7,7 @@
 @implementation CDVParsePlugin
 
 NSString *storyURL;
+PFConfig *conf;
 
 - (void)getInstallationId:(CDVInvokedUrlCommand*) command
 {
@@ -39,11 +40,6 @@ NSString *storyURL;
 
 - (void)subscribe: (CDVInvokedUrlCommand *)command
 {
-    // Not sure if this is necessary
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-        UIRemoteNotificationTypeBadge |
-        UIRemoteNotificationTypeAlert |
-        UIRemoteNotificationTypeSound];
 
     CDVPluginResult* pluginResult = nil;
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
@@ -73,12 +69,56 @@ NSString *storyURL;
 
 - (void)handleBackgroundNotification:(NSDictionary *)notification
 {
-    if ([notification objectForKey:@"url"])
+    if ([notification objectForKey:@"id"])
     {
         // do something with job id
-        storyURL = [notification objectForKey:@"url"];
+        storyURL = [notification objectForKey:@"id"];
     }
 }
+- (void)getConfig: (CDVInvokedUrlCommand *)command
+{
+    
+    
+    [PFConfig getConfigInBackgroundWithBlock:^(PFConfig *config, NSError *error) {
+        if (!error) {
+            NSLog(@"got config");
+            conf = config;
+            NSLog(@"%@", config[@"iOS_Version"]);
+        } else {
+            NSLog(@"error getting config");
+            config = [PFConfig currentConfig];
+        }
+        CDVPluginResult* pluginResult = nil;
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+    
+    
+}
+- (void)getConfigItem: (CDVInvokedUrlCommand *)command
+{
+    NSString *configItemName = [command.arguments objectAtIndex:0];
+    NSString *configDefault = [command.arguments objectAtIndex:1];
+    NSString *item = conf[configItemName];
+    if (!item) {
+        item = configDefault;
+    }
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:item];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+- (void)getConfigPlatformItem: (CDVInvokedUrlCommand *)command
+{
+    NSString *configItemName = [command.arguments objectAtIndex:0];
+    NSString *configDefault = [command.arguments objectAtIndex:1];
+    NSString *item = conf[[@"iOS_" stringByAppendingString:configItemName]];
+    NSLog(@"%@",[@"iOS_" stringByAppendingString:configItemName]);
+    if (!item) {
+        item = configDefault;
+    }
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:item];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 
 @end
 
