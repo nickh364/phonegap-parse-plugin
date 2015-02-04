@@ -77,6 +77,21 @@ Usage iOS
     [Parse setApplicationId:@"Your Application ID"
                   clientKey:@"Your Client Key"];
 ```
+#### Add this to your appdelegate.m
+```
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    if ( application.applicationState == UIApplicationStateActive ){
+        // app was already in the foreground
+    }
+    else{
+        NSDictionary *notificationPayload = userInfo;
+        CDVParsePlugin *parsePlugin = [[CDVParsePlugin alloc] init];
+        [parsePlugin handleBackgroundNotification:notificationPayload];
+        // app was just brought from background to foreground
+    }
+}
+```
 #### Use this to get custom data like a story url from your notification
 <hr />
 
