@@ -87,6 +87,7 @@ PFConfig *conf;
         } else {
             NSLog(@"error getting config");
             config = [PFConfig currentConfig];
+            conf = config;
         }
         CDVPluginResult* pluginResult = nil;
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
