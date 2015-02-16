@@ -45,11 +45,16 @@ Parse.initialize(this, "Your Application ID", "Your Client Key");
 ```
 ##### Drag PushReceiver.java from org.apache.cordova.core to your package
 
-##### You can change the key from something other than url under PushReceiver.java
+##### You can change the key from something other than id under PushReceiver.java
 ```
 if(key.equals("id")){
 	ParsePlugin.key = json.getString(id);
 }
+```
+
+##### You need to change the activity under PushReceiver.java
+```
+Intent i = new Intent(context, YOUR_CORDOVA_ACTIVITY.class);
 ```
 <hr/>
 Usage iOS
@@ -121,7 +126,7 @@ if (application.applicationState != UIApplicationStateBackground) {
 
 ```
 
-##### You can change the key from something other than url under CDVParsePlugin.m
+##### You can change the key from something other than id under CDVParsePlugin.m
 ```
 - (void)handleBackgroundNotification:(NSDictionary *)notification
 {
