@@ -132,7 +132,6 @@ if (application.applicationState != UIApplicationStateBackground) {
 {
     if ([notification objectForKey:@"id"])
     {
-        // do something with job id
         storyURL = [notification objectForKey:@"id"];
     }
 }
