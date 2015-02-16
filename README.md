@@ -47,8 +47,8 @@ Parse.initialize(this, "Your Application ID", "Your Client Key");
 
 ##### You can change the key from something other than url under PushReceiver.java
 ```
-if(key.equals("url")){
-	ParsePlugin.key = json.getString(key);
+if(key.equals("id")){
+	ParsePlugin.key = json.getString(id);
 }
 ```
 <hr/>
