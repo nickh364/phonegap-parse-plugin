@@ -81,15 +81,16 @@ Usage iOS
 ```
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    if ( application.applicationState == UIApplicationStateActive ){
-        // app was already in the foreground
-    }
-    else{
+    if (application.applicationState == UIApplicationStateInactive) {
+        // The application was just brought from the background to the foreground,
+        // so we consider the app as having been "opened by a push notification."
+        [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
         NSDictionary *notificationPayload = userInfo;
         CDVParsePlugin *parsePlugin = [[CDVParsePlugin alloc] init];
         [parsePlugin handleBackgroundNotification:notificationPayload];
-        // app was just brought from background to foreground
+        
     }
+
 }
 ```
 #### Use this to get custom data like a story url from your notification
@@ -102,8 +103,21 @@ Usage iOS
 ##### Add this to your AppDelegates didFinishLaunchingWithOptions
 ```
  NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
-    CDVParsePlugin *parsePlugin = [[CDVParsePlugin alloc] init];
-    [parsePlugin handleBackgroundNotification:notificationPayload];
+CDVParsePlugin *parsePlugin = [[CDVParsePlugin alloc] init];
+[parsePlugin handleBackgroundNotification:notificationPayload];
+
+if (application.applicationState != UIApplicationStateBackground) {
+	// Track an app open here if we launch with a push, unless
+	// "content_available" was used to trigger a background push (introduced
+	// in iOS 7). In that case, we skip tracking here to avoid double
+	// counting the app-open.
+	BOOL preBackgroundPush = ![application respondsToSelector:@selector(backgroundRefreshStatus)];
+	BOOL oldPushHandlerOnly = ![self respondsToSelector:@selector(application:didReceiveRemoteNotification:fetchCompletionHandler:)];
+	BOOL noPushPayload = ![launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+	if (preBackgroundPush || oldPushHandlerOnly || noPushPayload) {
+	    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+	}
+}
 
 ```
 
@@ -111,10 +125,10 @@ Usage iOS
 ```
 - (void)handleBackgroundNotification:(NSDictionary *)notification
 {
-    if ([notification objectForKey:@"url"])
+    if ([notification objectForKey:@"id"])
     {
         // do something with job id
-        storyURL = [notification objectForKey:@"url"];
+        storyURL = [notification objectForKey:@"id"];
     }
 }
 ```
