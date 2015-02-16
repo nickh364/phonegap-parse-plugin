@@ -138,7 +138,8 @@ public class ParsePlugin extends CordovaPlugin {
             	    	conf = config;
             	    } else {
             	    	Log.e("TAG", "Failed to fetch. Using Cached Config.");
-            	      config = ParseConfig.getCurrentConfig();
+            	      	config = ParseConfig.getCurrentConfig();
+            	      	conf = config;
             	    }
             	    callbackContext.success();
             	  }
