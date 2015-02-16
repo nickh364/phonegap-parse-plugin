@@ -25,14 +25,14 @@ Usage Android
 
 #### Add this import to your activity
 ```
-import com.parse.Parse;
+import com.parse.ParseAnalytics;
 ```
 #### Add this under onCreate()
 ```
-Parse.initialize(this, "Your Application ID", "Your Client Key");
+ParseAnalytics.trackAppOpenedInBackground(getIntent());
 ```
 
-#### Use this to get custom data like a story url from your notification
+#### Use this to get custom data like an id from your notification
 <hr />
 
 ##### Add this to your apps manifest and change com.example to your package name
@@ -81,6 +81,19 @@ Usage iOS
     
     [Parse setApplicationId:@"Your Application ID"
                   clientKey:@"Your Client Key"];
+                  
+	if (application.applicationState != UIApplicationStateBackground) {
+		// Track an app open here if we launch with a push, unless
+		// "content_available" was used to trigger a background push (introduced
+		// in iOS 7). In that case, we skip tracking here to avoid double
+		// counting the app-open.
+		BOOL preBackgroundPush = ![application respondsToSelector:@selector(backgroundRefreshStatus)];
+		BOOL oldPushHandlerOnly = ![self respondsToSelector:@selector(application:didReceiveRemoteNotification:fetchCompletionHandler:)];
+		BOOL noPushPayload = ![launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+		if (preBackgroundPush || oldPushHandlerOnly || noPushPayload) {
+		    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+		}
+	}
 ```
 #### Add this to your appdelegate.m
 ```
@@ -90,15 +103,10 @@ Usage iOS
         // The application was just brought from the background to the foreground,
         // so we consider the app as having been "opened by a push notification."
         [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
-        NSDictionary *notificationPayload = userInfo;
-        CDVParsePlugin *parsePlugin = [[CDVParsePlugin alloc] init];
-        [parsePlugin handleBackgroundNotification:notificationPayload];
-        
     }
-
 }
 ```
-#### Use this to get custom data like a story url from your notification
+#### Use this to get custom data like an id from your notification
 <hr />
 
 ##### Add this import to your AppDelegate
@@ -111,21 +119,14 @@ Usage iOS
 CDVParsePlugin *parsePlugin = [[CDVParsePlugin alloc] init];
 [parsePlugin handleBackgroundNotification:notificationPayload];
 
-if (application.applicationState != UIApplicationStateBackground) {
-	// Track an app open here if we launch with a push, unless
-	// "content_available" was used to trigger a background push (introduced
-	// in iOS 7). In that case, we skip tracking here to avoid double
-	// counting the app-open.
-	BOOL preBackgroundPush = ![application respondsToSelector:@selector(backgroundRefreshStatus)];
-	BOOL oldPushHandlerOnly = ![self respondsToSelector:@selector(application:didReceiveRemoteNotification:fetchCompletionHandler:)];
-	BOOL noPushPayload = ![launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-	if (preBackgroundPush || oldPushHandlerOnly || noPushPayload) {
-	    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-	}
-}
-
 ```
 
+##### Add this to your AppDelegates didReceiveRemoteNotification if (application.applicationState == UIApplicationStateInactive) {
+```
+NSDictionary *notificationPayload = userInfo;
+CDVParsePlugin *parsePlugin = [[CDVParsePlugin alloc] init];
+[parsePlugin handleBackgroundNotification:notificationPayload];
+```
 ##### You can change the key from something other than id under CDVParsePlugin.m
 ```
 - (void)handleBackgroundNotification:(NSDictionary *)notification
@@ -144,7 +145,7 @@ if (application.applicationState != UIApplicationStateBackground) {
          "alert": "Hello world!",
          "sound": "cat.caf"
     },
-    "url": http://example.com
+    "id": 4567
 }
 ```
 <hr />
@@ -191,9 +192,9 @@ Javascript Functions
 	}, function(e) {
 		alert('error');
 	});
-	// I am using this to get a url from the notification
-	parsePlugin.getNotification(function(url) {
-		alert(url);
+	// I am using this to get a id from the notification
+	parsePlugin.getNotification(function(id) {
+		alert(id);
 	}, function(e) {
 		alert('error');
 	});
