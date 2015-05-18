@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" id="org.apache.cordova.core.parseplugin" version="1.1.1">
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" id="org.apache.cordova.core.parseplugin" version="1.1.2">
     <name>phonegap-parse-plugin</name>
     <description>phonegap parse plugin</description>
 
@@ -15,11 +15,10 @@
                 <param name="android-package" value="org.apache.cordova.core.ParsePlugin" />
             </feature>
         </config-file>
-        
+
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <service android:name="com.parse.PushService" />
-            <receiver android:name="com.parse.GcmBroadcastReceiver"
-              android:permission="com.google.android.c2dm.permission.SEND">
+            <receiver android:name="com.parse.GcmBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
                 <intent-filter>
                     <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                     <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
@@ -40,18 +39,18 @@
             <meta-data android:name="com.parse.push.notification_icon" android:resource="@drawable/notificationicon" />
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/manifest">
-          <uses-permission android:name="android.permission.INTERNET" />
-          <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-          <uses-permission android:name="android.permission.WAKE_LOCK" />
-          <uses-permission android:name="android.permission.VIBRATE" />
-          <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-          <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-          <permission android:protectionLevel="signature" android:name="$PACKAGE_NAME.permission.C2D_MESSAGE" />
-          <uses-permission android:name="$PACKAGE_NAME.permission.C2D_MESSAGE" />
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
+            <uses-permission android:name="android.permission.VIBRATE" />
+            <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+            <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+            <permission android:protectionLevel="signature" android:name="$PACKAGE_NAME.permission.C2D_MESSAGE" />
+            <uses-permission android:name="$PACKAGE_NAME.permission.C2D_MESSAGE" />
         </config-file>
-        
-        <source-file src="src/android/parse/Parse-1.8.2.jar" target-dir="libs" framework="true" />
-        <source-file src="src/android/parse/bolts-android-1.1.4.jar" target-dir="libs" framework="true" />
+
+        <source-file src="src/android/parse/Parse-1.9.2.jar" target-dir="libs" framework="true" />
+        <source-file src="src/android/parse/bolts-android-1.2.0.jar" target-dir="libs" framework="true" />
         <source-file src="src/android/ParsePlugin.java" target-dir="src/org/apache/cordova/core" />
         <source-file src="src/android/PushReceiver.java" target-dir="src/org/apache/cordova/core" />
     </platform>
